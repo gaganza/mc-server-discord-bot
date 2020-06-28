@@ -31,9 +31,7 @@ async function updateChannel() {
   
   let serverStatus = await getServerStatusData();
   
-  if (serverStatus.online) {
-    channel.send(`Currently ${serverStatus.players.online} players online`)
-  } else {   
+  if (!serverStatus.online) {
     channel.send(`${client.users.cache.get(MY_USER_ID)} - the server is offline!`)
   }
 }
@@ -43,6 +41,21 @@ client.on("ready", async () => {
 
   updateChannel();
   setInterval(updateChannel, ONE_SECOND * 60 * 60)
+
+  client.on("message", async (message) => {
+    if (message.content.substring(0, 1) == "#") {
+      let args = message.content.substring(1).split(" ");
+      let cmd = args[0].toLowerCase();
+      args = args.splice(1);
+  
+      switch (cmd) {
+        case "p":
+        case "ping":
+          let serverStatus = await getServerStatusData();
+          message.reply(`Currently ${serverStatus.players.online} players online`);
+      }
+    }
+  })
 });
 
 
