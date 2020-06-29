@@ -47,12 +47,17 @@ client.on("ready", async () => {
       let args = message.content.substring(1).split(" ");
       let cmd = args[0].toLowerCase();
       args = args.splice(1);
+
+      let serverData = await getServerStatusData();
   
       switch (cmd) {
         case "p":
         case "ping":
-          let serverStatus = await getServerStatusData();
-          message.reply(`Currently ${serverStatus.players.online} players online`);
+          message.reply(`Currently ${serverData.players.online} players online`);
+
+        case "l":
+        case "list":
+          message.reply(`Players currently online: ${serverData.players.list}`)
       }
     }
   })
