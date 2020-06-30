@@ -57,7 +57,11 @@ client.on("ready", async () => {
 
         case "l":
         case "list":
-          message.reply(`Players currently online: ${serverData.players.list}`)
+          if (serverData.players.online > 0) {
+            message.reply(`Players currently online: ${serverData.players.list}`)
+          } else {
+            message.reply('There are no players online')
+          }
       }
     }
   })
