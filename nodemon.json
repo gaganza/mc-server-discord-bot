@@ -1,0 +1,6 @@
+{
+  "watch": ["./src/mcServer"],
+  "ext": ".ts,.js",
+  "ignore": [],
+  "exec": "ts-node ./src/mcServerBot.ts"
+}
